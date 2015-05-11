@@ -9,6 +9,7 @@
 
 #include "dsm.h"
 
+// 의미가 몰까 ?
 struct testlist {
   void *mypt;
   struct testlist *next;
@@ -22,6 +23,7 @@ struct testlist {
   "661:\n\tlock; "              /* assert processor LOCK# signal */ 
 
 
+// Atomic Increment
 static inline void atomic_inc(volatile int *v) {
   __asm__ __volatile__ (LOCK_PREFIX "incl %0" /* increment the var */
                         : "+m" (*v) /* */);
@@ -30,13 +32,20 @@ static inline void atomic_inc(volatile int *v) {
 
 int main(int arg, char **argv) {
   int i;
-  int master=strcmp(argv[1],"master")==0;
+  int master=strcmp(argv[1],"master")==0; // master 인가 ?
   char *masterip=argv[2];
   char *otherip=argv[3];
-  int testnumber=atoi(argv[4]);
+  int testnumber=atoi(argv[4]);  // testnumber ?
 
   printf("master=%d masterip=%s otherip=%s\n",master, masterip, otherip);
-  initializeDSM(master, masterip, 54213, otherip, 37234, 10000);
+  
+  initializeDSM(master,
+  		masterip,
+  		54213,		// ?
+  		otherip,
+  		37234,		// ?
+  		10000		// ?
+  		);
 
   void *region = getsharedregion();
 
